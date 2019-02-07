@@ -12,6 +12,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import frc.robot.RobotMap;
 import frc.robot.subsystem.ChassisDefaultCommand;
 
 /**
@@ -22,11 +23,11 @@ public class ChassisSubsystem extends Subsystem {
   // here. Call these from Commands.
 
 
-  WPI_TalonSRX rightMotor = new WPI_TalonSRX(3);
-  WPI_TalonSRX rightMotor2 = new WPI_TalonSRX(4);
+  WPI_TalonSRX rightMotor = new WPI_TalonSRX(RobotMap.RIGHT_MOTOR_ONE);
+  WPI_TalonSRX rightMotor2 = new WPI_TalonSRX(RobotMap.RIGHT_MOTOR_TWO);
   
-  WPI_TalonSRX leftMotor = new WPI_TalonSRX(5);
-  WPI_TalonSRX leftMotor2 = new WPI_TalonSRX(6);
+  WPI_TalonSRX leftMotor = new WPI_TalonSRX(RobotMap.LEFT_MOTOR_ONE);
+  WPI_TalonSRX leftMotor2 = new WPI_TalonSRX(RobotMap.LEFT_MOTOR_TWO);
 
   SpeedControllerGroup rightMotors = new SpeedControllerGroup(rightMotor, rightMotor2);
   SpeedControllerGroup leftMotors = new SpeedControllerGroup(leftMotor, leftMotor2);

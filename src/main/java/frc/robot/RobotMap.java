@@ -11,4 +11,25 @@ package frc.robot;
  * Add your docs here.
  */
 public class RobotMap {
+
+    public final static int RIGHT_MOTOR_ONE = 3;
+    public final static int RIGHT_MOTOR_TWO = 4;
+
+    public final static int LEFT_MOTOR_ONE = 5;
+    public final static int LEFT_MOTOR_TWO = 6;
+
+    public final static int ELEVATOR_MOTOR_LEAD = 9;
+    public final static int ELEVATOR_MOTOR_FOLLOW = 10;
+
+    public final static int INTAKE_MOTOR = 1;
+
+    public final static int PIVOT_MOTOR = 3;
+
+    public final static int LOW_HATCH_SOLENOID_PORT_ONE = 1;
+    public final static int LOW_HATCH_SOLENOID_PORT_TWO = 2;
+
+    public final static int HIGH_HATCH_SOLENOID_ONE = 3;
+    public final static int HIGH_HATCH_SOLENOID_TWO = 4;
+
+    public final static int SCREW_MOTOR = 8;
 }

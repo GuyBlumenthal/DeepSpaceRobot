@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import frc.robot.RobotMap;
 import frc.robot.subsystem.IntakeDefaultCommand;
 
 /**
@@ -21,15 +22,15 @@ import frc.robot.subsystem.IntakeDefaultCommand;
 public class IntakeSubsystem extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
-  WPI_TalonSRX elevatorMotor = new WPI_TalonSRX(9);
-  WPI_TalonSRX elevatorMotorFollow = new WPI_TalonSRX(10);
+  WPI_TalonSRX elevatorMotor = new WPI_TalonSRX(RobotMap.ELEVATOR_MOTOR_LEAD);
+  WPI_TalonSRX elevatorMotorFollow = new WPI_TalonSRX(RobotMap.ELEVATOR_MOTOR_FOLLOW);
 
-  Victor intakeMotor = new Victor(1);
+  Victor intakeMotor = new Victor(RobotMap.INTAKE_MOTOR);
 
-  Victor pivotMotor = new Victor(3);
+  Victor pivotMotor = new Victor(RobotMap.PIVOT_MOTOR);
 
-  DoubleSolenoid lowHatch = new DoubleSolenoid(1, 2);
-  DoubleSolenoid highHatch = new DoubleSolenoid(3, 4);
+  DoubleSolenoid lowHatch = new DoubleSolenoid(RobotMap.HIGH_HATCH_SOLENOID_ONE, RobotMap.LOW_HATCH_SOLENOID_PORT_TWO);
+  DoubleSolenoid highHatch = new DoubleSolenoid(RobotMap.HIGH_HATCH_SOLENOID_ONE, RobotMap.HIGH_HATCH_SOLENOID_TWO);
 
   public IntakeSubsystem() {
 
