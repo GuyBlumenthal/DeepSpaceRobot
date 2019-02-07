@@ -8,11 +8,11 @@
 package frc.robot.subsystem;
 
 import edu.wpi.first.wpilibj.command.Command;
+import frc.robot.Robot;
 
 public class ChassisDefaultCommand extends Command {
   public ChassisDefaultCommand() {
-    // Use requires() here to declare subsystem dependencies
-    // eg. requires(chassis);
+    requires(Robot.chassisSubsystem);
   }
 
   // Called just before this Command runs the first time
@@ -23,6 +23,12 @@ public class ChassisDefaultCommand extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+
+    double speed = Robot.oi.getSpeed();
+    double turn = Robot.oi.getTurn();
+
+    Robot.chassisSubsystem.move(speed, turn);
+
   }
 
   // Make this return true when this Command no longer needs to run execute()
