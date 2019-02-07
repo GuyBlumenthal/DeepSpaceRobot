@@ -8,11 +8,12 @@
 package frc.robot.subsystem;
 
 import edu.wpi.first.wpilibj.command.Command;
+import frc.robot.Robot;
 
 public class IntakeDefaultCommand extends Command {
   public IntakeDefaultCommand() {
     // Use requires() here to declare subsystem dependencies
-    // eg. requires(chassis);
+    requires(Robot.intakeSubsystem);
   }
 
   // Called just before this Command runs the first time
@@ -23,6 +24,34 @@ public class IntakeDefaultCommand extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+
+    double elevatorSpeed = Robot.oi.getElevatorSpeed();
+    double pivotSpeed = Robot.oi.getPivotSpeed();
+
+    double intakeSpeed = Robot.oi.getInputSpeed();
+
+    boolean pullLowHatch = Robot.oi.pullLowHatch();
+    boolean pushLowHatch = Robot.oi.pushLowHatch();
+
+    boolean pullHighHatch = Robot.oi.pullHighHatch();
+    boolean pushHighHatch = Robot.oi.pushHighHatch();
+
+    Robot.intakeSubsystem.setElevatorSpeed(elevatorSpeed);
+    Robot.intakeSubsystem.setPivotSpeed(pivotSpeed);
+    Robot.intakeSubsystem.setIntake(intakeSpeed);
+
+    if (pushLowHatch) {
+      Robot.intakeSubsystem.setLowHatch(true);
+    } else if (pullLowHatch) {
+      Robot.intakeSubsystem.setLowHatch(false);
+    }
+
+    if (pushHighHatch) {
+      Robot.intakeSubsystem.setHighHatch(true);
+    } else if (pullHighHatch) {
+      Robot.intakeSubsystem.setHighHatch(false);
+    }
+
   }
 
   // Make this return true when this Command no longer needs to run execute()
