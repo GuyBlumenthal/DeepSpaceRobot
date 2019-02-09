@@ -28,8 +28,8 @@ public class RobotMap {
     public final static int LOW_HATCH_SOLENOID_PORT_ONE = 1;
     public final static int LOW_HATCH_SOLENOID_PORT_TWO = 2;
 
-    public final static int HIGH_HATCH_SOLENOID_ONE = 3;
-    public final static int HIGH_HATCH_SOLENOID_TWO = 4;
+    public final static int HIGH_HATCH_SOLENOID_PORT_ONE = 3;
+    public final static int HIGH_HATCH_SOLENOID_PORT_TWO = 4;
 
     public final static int SCREW_MOTOR = 8;
 }

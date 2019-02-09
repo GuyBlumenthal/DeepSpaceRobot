@@ -29,8 +29,8 @@ public class IntakeSubsystem extends Subsystem {
 
   Victor pivotMotor = new Victor(RobotMap.PIVOT_MOTOR);
 
-  DoubleSolenoid lowHatch = new DoubleSolenoid(RobotMap.HIGH_HATCH_SOLENOID_ONE, RobotMap.LOW_HATCH_SOLENOID_PORT_TWO);
-  DoubleSolenoid highHatch = new DoubleSolenoid(RobotMap.HIGH_HATCH_SOLENOID_ONE, RobotMap.HIGH_HATCH_SOLENOID_TWO);
+  DoubleSolenoid lowHatch = new DoubleSolenoid(RobotMap.LOW_HATCH_SOLENOID_PORT_ONE, RobotMap.LOW_HATCH_SOLENOID_PORT_TWO);
+  DoubleSolenoid highHatch = new DoubleSolenoid(RobotMap.HIGH_HATCH_SOLENOID_PORT_ONE, RobotMap.HIGH_HATCH_SOLENOID_PORT_TWO);
 
   public IntakeSubsystem() {
 
