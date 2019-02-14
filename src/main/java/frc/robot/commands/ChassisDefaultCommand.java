@@ -5,15 +5,14 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.subsystem;
-
-import frc.robot.Robot;
+package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
+import frc.robot.Robot;
 
-public class LiftDefaultCommand extends Command {
-  public LiftDefaultCommand() {
-    requires(Robot.liftSubsystem);
+public class ChassisDefaultCommand extends Command {
+  public ChassisDefaultCommand() {
+    requires(Robot.chassisSubsystem);
   }
 
   // Called just before this Command runs the first time
@@ -24,6 +23,12 @@ public class LiftDefaultCommand extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+
+    double speed = Robot.oi.getSpeed();
+    double turn = Robot.oi.getTurn();
+
+    Robot.chassisSubsystem.move(speed, turn);
+
   }
 
   // Make this return true when this Command no longer needs to run execute()
