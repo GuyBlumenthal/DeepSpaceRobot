@@ -20,8 +20,8 @@ public class LiftSubsystem extends Subsystem {
   // here. Call these from Commands.
   Victor screwMotor = new Victor(RobotMap.SCREW_MOTOR);
 
-  public void liftMotorSpeed(double speed){
-    screwMotor.set(1);
+  public void setScrewSpeed(double speed){
+    screwMotor.set(speed);
   }
   @Override
   public void initDefaultCommand() {

@@ -23,6 +23,11 @@ public class LiftDefaultCommand extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+
+    double screwSpeed = Robot.oi.getScrewSpeed();
+
+    Robot.liftSubsystem.setScrewSpeed(screwSpeed);
+
   }
 
   // Make this return true when this Command no longer needs to run execute()

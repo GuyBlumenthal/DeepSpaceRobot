@@ -65,7 +65,7 @@ public class OI {
     public double getScrewSpeed() {
 
         if (operatingController.getTriggerAxis(Hand.kLeft) > 0.1) {
-            return operatingController.getTriggerAxis(Hand.kLeft);
+            return -operatingController.getTriggerAxis(Hand.kLeft);
         } else {
             return operatingController.getTriggerAxis(Hand.kRight);
         }
