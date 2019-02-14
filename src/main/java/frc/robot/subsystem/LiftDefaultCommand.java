@@ -7,12 +7,13 @@
 
 package frc.robot.subsystem;
 
+import frc.robot.Robot;
+
 import edu.wpi.first.wpilibj.command.Command;
 
 public class LiftDefaultCommand extends Command {
   public LiftDefaultCommand() {
-    // Use requires() here to declare subsystem dependencies
-    // eg. requires(chassis);
+    requires(Robot.liftSubsystem);
   }
 
   // Called just before this Command runs the first time
