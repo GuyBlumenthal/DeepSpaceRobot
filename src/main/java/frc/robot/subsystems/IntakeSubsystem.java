@@ -35,12 +35,12 @@ public class IntakeSubsystem extends Subsystem {
   public IntakeSubsystem() {
 
     elevatorMotorFollow.setInverted(true);
-    elevatorMotorFollow.follow(elevatorMotor);
 
   }
 
   public void setElevatorSpeed(double speed) {
     elevatorMotor.set(speed);
+    elevatorMotorFollow.set(speed * 0.95);
   }
 
   public void setIntake(double speed) {
