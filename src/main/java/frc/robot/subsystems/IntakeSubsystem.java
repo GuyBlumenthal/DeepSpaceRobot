@@ -32,12 +32,6 @@ public class IntakeSubsystem extends Subsystem {
   DoubleSolenoid lowHatch = new DoubleSolenoid(RobotMap.LOW_HATCH_SOLENOID_PORT_ONE, RobotMap.LOW_HATCH_SOLENOID_PORT_TWO);
   DoubleSolenoid highHatch = new DoubleSolenoid(RobotMap.HIGH_HATCH_SOLENOID_PORT_ONE, RobotMap.HIGH_HATCH_SOLENOID_PORT_TWO);
 
-  public IntakeSubsystem() {
-
-    elevatorMotorFollow.setInverted(true);
-
-  }
-
   public void setElevatorSpeed(double speed) {
     elevatorMotor.set(speed);
     elevatorMotorFollow.set(speed * 0.95);
@@ -53,17 +47,17 @@ public class IntakeSubsystem extends Subsystem {
 
   public void setLowHatch(boolean state) {
     if (state) {
-      lowHatch.set(Value.kForward);
-    } else {
       lowHatch.set(Value.kReverse);
+    } else {
+      lowHatch.set(Value.kForward);
     }
   }
 
   public void setHighHatch(boolean state) {
     if (state) {
-      highHatch.set(Value.kForward);
-    } else {
       highHatch.set(Value.kReverse);
+    } else {
+      highHatch.set(Value.kForward);
     }
   }
 

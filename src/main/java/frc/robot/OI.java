@@ -19,7 +19,7 @@ public class OI {
     XboxController operatingController = new XboxController(1);
 
     public double getSpeed(){
-        return drivingController.getY(Hand.kLeft);
+        return -drivingController.getY(Hand.kLeft);
     } 
 
     public double getTurn(){
@@ -27,11 +27,11 @@ public class OI {
     }
     
     public double getPivotSpeed() {
-        return operatingController.getY(Hand.kLeft);
+        return -operatingController.getY(Hand.kLeft);
     }
 
     public double getElevatorSpeed() {
-        return operatingController.getY(Hand.kRight);
+        return -operatingController.getY(Hand.kRight);
     }
 
     public double getInputSpeed() {
@@ -47,19 +47,11 @@ public class OI {
     }
 
     public boolean pushLowHatch() {
-        return operatingController.getAButtonPressed();
-    }
-
-    public boolean pullLowHatch() {
-        return operatingController.getAButtonReleased();
+        return operatingController.getAButton();
     }
 
     public boolean pushHighHatch() {
-        return operatingController.getBButtonPressed();
-    }
-
-    public boolean pullHighHatch() {
-        return operatingController.getBButtonReleased();
+        return operatingController.getBButton();
     }
 
     public double getScrewSpeed() {
@@ -68,6 +60,16 @@ public class OI {
             return -operatingController.getTriggerAxis(Hand.kLeft);
         } else {
             return operatingController.getTriggerAxis(Hand.kRight);
+        }
+
+    }
+
+    public double getLiftDrivingSpeed() {
+
+        if (drivingController.getTriggerAxis(Hand.kLeft) > 0.1) {
+            return -drivingController.getTriggerAxis(Hand.kLeft);
+        } else {
+            return drivingController.getTriggerAxis(Hand.kRight);
         }
 
     }

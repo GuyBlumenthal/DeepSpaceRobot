@@ -30,10 +30,8 @@ public class IntakeDefaultCommand extends Command {
 
     double intakeSpeed = Robot.oi.getInputSpeed();
 
-    boolean pullLowHatch = Robot.oi.pullLowHatch();
     boolean pushLowHatch = Robot.oi.pushLowHatch();
 
-    boolean pullHighHatch = Robot.oi.pullHighHatch();
     boolean pushHighHatch = Robot.oi.pushHighHatch();
 
     Robot.intakeSubsystem.setElevatorSpeed(elevatorSpeed);
@@ -42,13 +40,12 @@ public class IntakeDefaultCommand extends Command {
 
     if (pushLowHatch) {
       Robot.intakeSubsystem.setLowHatch(true);
-    } else if (pullLowHatch) {
+    } else{
       Robot.intakeSubsystem.setLowHatch(false);
     }
-
     if (pushHighHatch) {
       Robot.intakeSubsystem.setHighHatch(true);
-    } else if (pullHighHatch) {
+    } else {
       Robot.intakeSubsystem.setHighHatch(false);
     }
 
