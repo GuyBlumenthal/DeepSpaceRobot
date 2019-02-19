@@ -34,4 +34,8 @@ public class RobotMap {
     public final static int HIGH_HATCH_SOLENOID_PORT_TWO = 7;
 
     public final static int SCREW_MOTOR = 3;
+
+    public final static int LOW_LIMIT_SWITCH = 1;
+    public final static int HIGH_LIMIT_SWITCH = 0;
+
 }

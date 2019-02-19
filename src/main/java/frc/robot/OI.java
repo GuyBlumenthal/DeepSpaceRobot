@@ -18,14 +18,14 @@ public class OI {
     XboxController drivingController = new XboxController(0);
     XboxController operatingController = new XboxController(1);
 
-    public double getSpeed(){
+    public double getSpeed() {
         return -drivingController.getY(Hand.kLeft);
-    } 
+    }
 
-    public double getTurn(){
+    public double getTurn() {
         return drivingController.getX(Hand.kRight);
     }
-    
+
     public double getPivotSpeed() {
         return -operatingController.getY(Hand.kLeft);
     }
@@ -56,21 +56,15 @@ public class OI {
 
     public double getScrewSpeed() {
 
-        if (operatingController.getTriggerAxis(Hand.kLeft) > 0.1) {
-            return -operatingController.getTriggerAxis(Hand.kLeft);
-        } else {
-            return operatingController.getTriggerAxis(Hand.kRight);
-        }
+        return operatingController.getTriggerAxis(Hand.kRight) - 
+        operatingController.getTriggerAxis(Hand.kLeft);
 
     }
 
     public double getLiftDrivingSpeed() {
 
-        if (drivingController.getTriggerAxis(Hand.kLeft) > 0.1) {
-            return -drivingController.getTriggerAxis(Hand.kLeft);
-        } else {
-            return drivingController.getTriggerAxis(Hand.kRight);
-        }
+        return drivingController.getTriggerAxis(Hand.kRight) - 
+        drivingController.getTriggerAxis(Hand.kLeft);
 
     }
 }

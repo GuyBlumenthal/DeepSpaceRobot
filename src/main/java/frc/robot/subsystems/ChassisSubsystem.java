@@ -7,6 +7,7 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
@@ -23,16 +24,34 @@ public class ChassisSubsystem extends Subsystem {
   // here. Call these from Commands.
 
 
-  WPI_TalonSRX rightMotor = new WPI_TalonSRX(RobotMap.RIGHT_MOTOR_ONE);
-  WPI_TalonSRX rightMotor2 = new WPI_TalonSRX(RobotMap.RIGHT_MOTOR_TWO);
+  WPI_TalonSRX rightMotor;
+  WPI_TalonSRX rightMotorFollow;
   
-  WPI_TalonSRX leftMotor = new WPI_TalonSRX(RobotMap.LEFT_MOTOR_ONE);
-  WPI_TalonSRX leftMotor2 = new WPI_TalonSRX(RobotMap.LEFT_MOTOR_TWO);
+  WPI_TalonSRX leftMotor;
+  WPI_TalonSRX leftMotorFollow;
 
-  SpeedControllerGroup rightMotors = new SpeedControllerGroup(rightMotor, rightMotor2);
-  SpeedControllerGroup leftMotors = new SpeedControllerGroup(leftMotor, leftMotor2);
+  SpeedControllerGroup rightMotors;
+  SpeedControllerGroup leftMotors;
 
-  DifferentialDrive drive = new DifferentialDrive(leftMotor, rightMotor);
+  DifferentialDrive drive;
+
+  public ChassisSubsystem () {
+
+    rightMotor = new WPI_TalonSRX(RobotMap.RIGHT_MOTOR_ONE);
+    rightMotorFollow = new WPI_TalonSRX(RobotMap.RIGHT_MOTOR_TWO);
+
+    rightMotorFollow.follow(rightMotor);
+    rightMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
+
+    leftMotor = new WPI_TalonSRX(RobotMap.LEFT_MOTOR_ONE);
+    leftMotorFollow = new WPI_TalonSRX(RobotMap.LEFT_MOTOR_TWO);
+
+    leftMotorFollow.follow(leftMotor);
+    leftMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);;
+    
+    drive = new DifferentialDrive(leftMotor, rightMotor);
+
+  }
 
   @Override
   public void initDefaultCommand() {
