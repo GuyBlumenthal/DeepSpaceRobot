@@ -11,7 +11,6 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.RobotConstants;
 import frc.robot.RobotMap;
 import frc.robot.commands.ElevatorDefaultCommand;
@@ -71,16 +70,9 @@ public class ElevatorSubsystem extends Subsystem {
     setElevatorSpeed(0);
   }
 
+
   @Override
   public void initDefaultCommand() {
     setDefaultCommand(new ElevatorDefaultCommand());
   }
-
-  public void updateSmartdashboard () {
-
-    SmartDashboard.putBoolean("High limit switch", getHighLimitSwitch());
-    SmartDashboard.putBoolean("Low limit switch", getLowLimitSwitch());
-
-  }
-
 }

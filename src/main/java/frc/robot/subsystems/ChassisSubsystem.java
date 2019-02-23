@@ -10,11 +10,6 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
-import edu.wpi.cscore.UsbCamera;
-import edu.wpi.first.cameraserver.CameraServer;
-import edu.wpi.first.networktables.NetworkTable;
-import edu.wpi.first.networktables.NetworkTableEntry;
-import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -28,7 +23,6 @@ public class ChassisSubsystem extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
 
-  UsbCamera camera1;
 
   WPI_TalonSRX rightMotor;
   WPI_TalonSRX rightMotorFollow;
@@ -39,18 +33,6 @@ public class ChassisSubsystem extends Subsystem {
   DifferentialDrive drive;
 
   public ChassisSubsystem () {
-
-    NetworkTableInstance ntInst = NetworkTableInstance.getDefault();
-    NetworkTable nt = ntInst.getTable("/SmartDashboard");
-    NetworkTableEntry ntEntry= nt.getEntry("Test");
-    ntInst.startClientTeam(5834);
-    
-    ntEntry.setDouble(1.1);
-
-    NetworkTableEntry ntEntry2 = nt.getEntry("Test");
-    System.out.print(ntEntry2.getDouble(0.0));
-
-    camera1 = CameraServer.getInstance().startAutomaticCapture();
 
     rightMotor = new WPI_TalonSRX(RobotMap.RIGHT_MOTOR_ONE);
     rightMotorFollow = new WPI_TalonSRX(RobotMap.RIGHT_MOTOR_TWO);
