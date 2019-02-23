@@ -99,9 +99,9 @@ public class FollowCommand extends Command {
 		if (Math.abs(speedL) > minSpeedL && Math.abs(speedR) > minSpeedR) {
 			
 			for (int i = 0; i < 9; i++) {
-				char[] binaryRep = Integer.toBinaryString(i).toCharArray();
-				int side = Integer.parseInt(String.valueOf(binaryRep[0])) - 1;
-				int up = Integer.parseInt(String.valueOf(binaryRep[1])) - 1;
+				char[] ternaryRep = Integer.toString(i, 3).toCharArray();
+				int side = Integer.parseInt(String.valueOf(ternaryRep[0])) - 1;
+				int up = Integer.parseInt(String.valueOf(ternaryRep[1])) - 1;
 				
 				double[] direction = {speedL + side * delta, speedR + up * delta};
 				double[][] temp = {checkPosition(parameters, speedL + side * delta, speedR + up * delta), direction};
