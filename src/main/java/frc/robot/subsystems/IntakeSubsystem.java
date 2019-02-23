@@ -7,11 +7,11 @@
 
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.RobotMap;
 import frc.robot.commands.IntakeDefaultCommand;
 
@@ -28,8 +28,6 @@ public class IntakeSubsystem extends Subsystem {
 
   DoubleSolenoid lowHatch;
   DoubleSolenoid highHatch;
-  DigitalInput lowLimitSwitch;
-  DigitalInput highLimitSwitch;
 
   public IntakeSubsystem () {
 
@@ -66,12 +64,23 @@ public class IntakeSubsystem extends Subsystem {
     }
   }
 
+  public boolean getHighHatch() {
+    return highHatch.get() == Value.kForward ? true : false;
+  }
+
+  public boolean getLowHatch() {
+    return lowHatch.get() == Value.kForward ? true : false;
+  }
+
   @Override
   public void initDefaultCommand() {
     setDefaultCommand(new IntakeDefaultCommand());
   }
 
   public void updateSmartDashboard () {
+
+    SmartDashboard.putBoolean("High Hatch Solenoids", getHighHatch());
+    SmartDashboard.putBoolean("Low Hatch Solenoids", getLowHatch());
 
   }
 
