@@ -59,6 +59,10 @@ public class ChassisSubsystem extends Subsystem {
     drive.arcadeDrive(speed, turn);
   }
 
+  public void tankMove (double leftSpeed, double rightSpeed) {
+    drive.tankDrive(leftSpeed, rightSpeed);
+  }
+
   public void updateSmartDashboard () {
 
     SmartDashboard.putData("Drive Base", drive);
