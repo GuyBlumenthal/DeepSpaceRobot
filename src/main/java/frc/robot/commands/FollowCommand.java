@@ -82,18 +82,18 @@ public class FollowCommand extends Command {
 	private double[] newPosition(double parameters[]) {
 		
 		double[] newPos = new double[3];
-		
+    
+    int delta = 100; // Can change this later
+
+    ArrayList<double[][]> potential = new ArrayList<double[][]>();
+    ArrayList<double[][]> highPotential = new ArrayList<double[][]>();
+    
 		if (Math.abs(speedL) > minSpeedL && Math.abs(speedR) > minSpeedR) {
-			
-			ArrayList<double[][]> potential = new ArrayList<double[][]>();
-			ArrayList<double[][]> highPotential = new ArrayList<double[][]>();
 			
 			for (int i = 0; i < 9; i++) {
 				char[] binaryRep = Integer.toBinaryString(i).toCharArray();
 				int side = Integer.parseInt(String.valueOf(binaryRep[0])) - 1;
 				int up = Integer.parseInt(String.valueOf(binaryRep[1])) - 1;
-				
-				int delta = 100; // Can change this later
 				
 				double[] direction = {speedL + side * delta, speedR + up * delta};
 				double[][] temp = {checkPosition(parameters, speedL + side * delta, speedR + up * delta), direction};
@@ -124,7 +124,66 @@ public class FollowCommand extends Command {
 			
 			Robot.chassisSubsystem.tankMove(speedL/maxSpeedL, speedR/minSpeedL);
 		} else {
-			//Search perimeter of the "minimum square"
+      
+      /*
+        These nasty for loops may pose an issue.
+      */
+
+      //Top edge
+
+      for (int i = (int)-minSpeedR; i < minSpeedR; i+=delta) {
+          double[] direction = {i, minSpeedL};
+          double[][] temp = {checkPosition(parameters, i, minSpeedL), direction};
+          potential.add(temp);
+      }
+
+      //Bottom edge
+
+      for (int i = (int)-minSpeedR; i < minSpeedR; i+=delta) {
+        double[] direction = {i, -minSpeedL};
+        double[][] temp = {checkPosition(parameters, i, -minSpeedL), direction};
+        potential.add(temp);
+      }
+
+      //Left edge
+
+      for (int i = (int)minSpeedL; i > -minSpeedL; i-=delta) {
+        double[] direction = {-minSpeedR, i};
+        double[][] temp = {checkPosition(parameters, -minSpeedR, i), direction};
+        potential.add(temp);
+      }
+
+      //Left edge
+
+      for (int i = (int)minSpeedL; i > -minSpeedL; i-=delta) {
+          double[] direction = {minSpeedR, i};
+          double[][] temp = {checkPosition(parameters, minSpeedR, i), direction};
+          potential.add(temp);
+      }
+
+      for (int i = 0 ; i < potential.size(); i++) {  
+          if (potential.get(i)[0][0] < parameters[0] && 
+          potential.get(i)[0][1] < parameters[1] &&
+          potential.get(i)[0][2] < parameters[2]) {
+          highPotential.add(potential.get(i));
+        }
+      }
+
+      Collections.sort(highPotential, new CompareParams());
+			Collections.sort(potential, new CompareParams());
+			
+			int speedL, speedR;
+			
+			if (highPotential.size() > 0) {
+				speedL = (int) highPotential.get(highPotential.size() - 1)[1][0];
+				speedR = (int) highPotential.get(highPotential.size() - 1)[1][1];
+			} else {
+				speedL = (int) potential.get(potential.size() - 1)[1][0];
+				speedR = (int) potential.get(potential.size() - 1)[1][1];
+			}
+			
+			Robot.chassisSubsystem.tankMove(speedL/maxSpeedL, speedR/minSpeedL);
+      
 		}
 		
 		return newPos;
