@@ -12,7 +12,7 @@ import frc.robot.Robot;
 
 public class MoveElevatorToMin extends Command {
   public MoveElevatorToMin() {
-    requires(Robot.intakeSubsystem);
+    requires(Robot.elevatorSubsystem);
   }
 
   // Called just before this Command runs the first time
@@ -23,25 +23,25 @@ public class MoveElevatorToMin extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.intakeSubsystem.moveElevatorDown();
+    Robot.elevatorSubsystem.moveElevatorDown();
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return Robot.intakeSubsystem.getLowLimitSwitch();
+    return Robot.elevatorSubsystem.getLowLimitSwitch();
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    Robot.intakeSubsystem.stopElevatorMovement();
+    Robot.elevatorSubsystem.stopElevatorMovement();
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
-    Robot.intakeSubsystem.stopElevatorMovement();
+    Robot.elevatorSubsystem.stopElevatorMovement();
   }
 }
