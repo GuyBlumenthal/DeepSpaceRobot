@@ -12,6 +12,10 @@ package frc.robot;
  */
 public class RobotMap {
 
+    // ------------------------------ //
+    // -------- CAN Bus Ports ------- //
+    // ------------------------------ //
+
     public final static int RIGHT_MOTOR_ONE = 3;
     public final static int RIGHT_MOTOR_TWO = 4;
 
@@ -21,11 +25,21 @@ public class RobotMap {
     public final static int ELEVATOR_MOTOR_LEAD = 9;
     public final static int ELEVATOR_MOTOR_FOLLOW = 10;
 
-    public final static int INTAKE_MOTOR = 6;
+    // ------------------------------ //
+    // ---------- PWM Ports --------- //
+    // ------------------------------ //
 
     public final static int PIVOT_MOTOR = 0;
-
+    
+    public final static int SCREW_MOTOR = 3;
+    
+    public final static int INTAKE_MOTOR = 6;
+    
     public final static int LIFT_DRIVING_MOTOR = 9;
+    
+    // ------------------------------ //
+    // ------- Solenoid Ports ------- //
+    // ------------------------------ //
 
     public final static int LOW_HATCH_SOLENOID_PORT_ONE = 4;
     public final static int LOW_HATCH_SOLENOID_PORT_TWO = 5;
@@ -33,11 +47,11 @@ public class RobotMap {
     public final static int HIGH_HATCH_SOLENOID_PORT_ONE = 6;
     public final static int HIGH_HATCH_SOLENOID_PORT_TWO = 7;
 
-    public final static int SCREW_MOTOR = 3;
+    // ------------------------------ //
+    // ---------- DIO Ports --------- //
+    // ------------------------------ //
 
     public final static int LOW_LIMIT_SWITCH = 1;
     public final static int HIGH_LIMIT_SWITCH = 0;
-
-    public final static double ELEVATOR_COMMAND_SPEED = 0.5;
 
 }
