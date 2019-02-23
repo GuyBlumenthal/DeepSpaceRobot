@@ -7,6 +7,8 @@
 
 package frc.robot;
 
+import edu.wpi.cscore.UsbCamera;
+import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -34,6 +36,8 @@ public class Robot extends TimedRobot {
 
   public static OI oi = new OI();
 
+  UsbCamera camera;
+
   /**
    * This function is run when the robot is first started up and should be
    * used for any initialization code.
@@ -43,6 +47,8 @@ public class Robot extends TimedRobot {
     m_chooser.setDefaultOption("Default Auto", kDefaultAuto);
     m_chooser.addOption("My Auto", kCustomAuto);
     SmartDashboard.putData("Auto choices", m_chooser);
+
+    camera = CameraServer.getInstance().startAutomaticCapture();
   }
 
   /**

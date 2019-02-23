@@ -25,9 +25,10 @@ public class LiftDefaultCommand extends Command {
   protected void execute() {
 
     double screwSpeed = Robot.oi.getScrewSpeed();
+    double liftDrivingSpeed = Robot.oi.getLiftDrivingSpeed();
 
     Robot.liftSubsystem.setScrewSpeed(screwSpeed);
-
+    Robot.liftSubsystem.setLiftDrivingSpeed(liftDrivingSpeed);
   }
 
   // Make this return true when this Command no longer needs to run execute()

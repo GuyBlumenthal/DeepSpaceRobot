@@ -21,15 +21,21 @@ public class RobotMap {
     public final static int ELEVATOR_MOTOR_LEAD = 9;
     public final static int ELEVATOR_MOTOR_FOLLOW = 10;
 
-    public final static int INTAKE_MOTOR = 1;
+    public final static int INTAKE_MOTOR = 6;
 
-    public final static int PIVOT_MOTOR = 9;
+    public final static int PIVOT_MOTOR = 0;
 
-    public final static int LOW_HATCH_SOLENOID_PORT_ONE = 1;
-    public final static int LOW_HATCH_SOLENOID_PORT_TWO = 2;
+    public final static int LIFT_DRIVING_MOTOR = 9;
 
-    public final static int HIGH_HATCH_SOLENOID_PORT_ONE = 3;
-    public final static int HIGH_HATCH_SOLENOID_PORT_TWO = 4;
+    public final static int LOW_HATCH_SOLENOID_PORT_ONE = 4;
+    public final static int LOW_HATCH_SOLENOID_PORT_TWO = 5;
+
+    public final static int HIGH_HATCH_SOLENOID_PORT_ONE = 6;
+    public final static int HIGH_HATCH_SOLENOID_PORT_TWO = 7;
 
     public final static int SCREW_MOTOR = 3;
+
+    public final static int LOW_LIMIT_SWITCH = 1;
+    public final static int HIGH_LIMIT_SWITCH = 0;
+
 }

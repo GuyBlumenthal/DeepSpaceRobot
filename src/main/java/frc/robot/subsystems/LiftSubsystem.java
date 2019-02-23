@@ -18,11 +18,24 @@ import frc.robot.commands.LiftDefaultCommand;
 public class LiftSubsystem extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
-  Victor screwMotor = new Victor(RobotMap.SCREW_MOTOR);
+  Victor screwMotor;
+  Victor liftDrivingMotor;
+
+  public LiftSubsystem () {
+
+    screwMotor  = new Victor(RobotMap.SCREW_MOTOR);
+    liftDrivingMotor = new Victor(RobotMap.LIFT_DRIVING_MOTOR);
+
+  }
 
   public void setScrewSpeed(double speed){
     screwMotor.set(speed);
   }
+  
+  public void setLiftDrivingSpeed(double liftDrivingSpeed) {
+    liftDrivingMotor.set(liftDrivingSpeed);
+  }
+
   @Override
   public void initDefaultCommand() {
     setDefaultCommand(new LiftDefaultCommand());

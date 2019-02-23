@@ -9,6 +9,7 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.Victor;
@@ -22,25 +23,51 @@ import frc.robot.commands.IntakeDefaultCommand;
 public class IntakeSubsystem extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
-  WPI_TalonSRX elevatorMotor = new WPI_TalonSRX(RobotMap.ELEVATOR_MOTOR_LEAD);
-  WPI_TalonSRX elevatorMotorFollow = new WPI_TalonSRX(RobotMap.ELEVATOR_MOTOR_FOLLOW);
 
-  Victor intakeMotor = new Victor(RobotMap.INTAKE_MOTOR);
+  WPI_TalonSRX elevatorMotor;
+  WPI_TalonSRX elevatorMotorFollow;
 
-  Victor pivotMotor = new Victor(RobotMap.PIVOT_MOTOR);
+  Victor intakeMotor;
 
-  DoubleSolenoid lowHatch = new DoubleSolenoid(RobotMap.LOW_HATCH_SOLENOID_PORT_ONE, RobotMap.LOW_HATCH_SOLENOID_PORT_TWO);
-  DoubleSolenoid highHatch = new DoubleSolenoid(RobotMap.HIGH_HATCH_SOLENOID_PORT_ONE, RobotMap.HIGH_HATCH_SOLENOID_PORT_TWO);
+  Victor pivotMotor;
 
-  public IntakeSubsystem() {
+  DoubleSolenoid lowHatch;
+  DoubleSolenoid highHatch;
 
-    elevatorMotorFollow.setInverted(true);
+  DigitalInput lowLimitSwitch;
+  DigitalInput highLimitSwitch;
+
+  public IntakeSubsystem () {
+
+    elevatorMotor = new WPI_TalonSRX(RobotMap.ELEVATOR_MOTOR_LEAD);
+    elevatorMotorFollow = new WPI_TalonSRX(RobotMap.ELEVATOR_MOTOR_FOLLOW);
+  
+    intakeMotor = new Victor(RobotMap.INTAKE_MOTOR);
+  
+    pivotMotor = new Victor(RobotMap.PIVOT_MOTOR);
+  
+    lowHatch = new DoubleSolenoid(RobotMap.LOW_HATCH_SOLENOID_PORT_ONE, RobotMap.LOW_HATCH_SOLENOID_PORT_TWO);
+    highHatch = new DoubleSolenoid(RobotMap.HIGH_HATCH_SOLENOID_PORT_ONE, RobotMap.HIGH_HATCH_SOLENOID_PORT_TWO);
+  
+    lowLimitSwitch = new DigitalInput(RobotMap.LOW_LIMIT_SWITCH);
+    highLimitSwitch = new DigitalInput(RobotMap.HIGH_LIMIT_SWITCH);
 
   }
+  
 
   public void setElevatorSpeed(double speed) {
+    
+    if (speed < 0 && !lowLimitSwitch.get()) {
+      speed = 0;
+    }
+
+    if (speed > 0 && !highLimitSwitch.get()) {
+      speed = 0;
+    }
+
     elevatorMotor.set(speed);
     elevatorMotorFollow.set(speed * 0.95);
+    
   }
 
   public void setIntake(double speed) {
@@ -53,17 +80,17 @@ public class IntakeSubsystem extends Subsystem {
 
   public void setLowHatch(boolean state) {
     if (state) {
-      lowHatch.set(Value.kForward);
-    } else {
       lowHatch.set(Value.kReverse);
+    } else {
+      lowHatch.set(Value.kForward);
     }
   }
 
   public void setHighHatch(boolean state) {
     if (state) {
-      highHatch.set(Value.kForward);
-    } else {
       highHatch.set(Value.kReverse);
+    } else {
+      highHatch.set(Value.kForward);
     }
   }
 
