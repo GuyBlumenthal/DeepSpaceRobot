@@ -214,8 +214,6 @@ public class FollowCommand extends Command {
       entries[1] = nti.getEntry("angle");
       entries[2] = nti.getEntry("orientation");
 
-     // double[] params = new double[3];
-
       for (int i = 0; i < 3; i++) {
         parameters[i] = entries[i].getDouble(0);
       }
