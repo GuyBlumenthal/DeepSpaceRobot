@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import frc.robot.RobotConstants;
 import frc.robot.RobotMap;
 import frc.robot.commands.IntakeDefaultCommand;
 
@@ -102,11 +103,11 @@ public class IntakeSubsystem extends Subsystem {
   }
 
   public void moveElevatorUp () {
-    setElevatorSpeed(RobotMap.ELEVATOR_COMMAND_SPEED);
+    setElevatorSpeed(RobotConstants.ELEVATOR_COMMAND_SPEED);
   }
 
   public void moveElevatorDown () {
-    setElevatorSpeed(-RobotMap.ELEVATOR_COMMAND_SPEED);
+    setElevatorSpeed(-RobotConstants.ELEVATOR_COMMAND_SPEED);
   }
 
   public void stopElevatorMovement () {
