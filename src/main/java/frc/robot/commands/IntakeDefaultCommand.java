@@ -12,7 +12,6 @@ import frc.robot.Robot;
 
 public class IntakeDefaultCommand extends Command {
   public IntakeDefaultCommand() {
-    // Use requires() here to declare subsystem dependencies
     requires(Robot.intakeSubsystem);
   }
 
@@ -25,7 +24,6 @@ public class IntakeDefaultCommand extends Command {
   @Override
   protected void execute() {
 
-    double elevatorSpeed = Robot.oi.getElevatorSpeed();
     double pivotSpeed = Robot.oi.getPivotSpeed();
 
     double intakeSpeed = Robot.oi.getInputSpeed();
@@ -34,13 +32,12 @@ public class IntakeDefaultCommand extends Command {
 
     boolean pushHighHatch = Robot.oi.pushHighHatch();
 
-    Robot.intakeSubsystem.setElevatorSpeed(elevatorSpeed);
     Robot.intakeSubsystem.setPivotSpeed(pivotSpeed);
-    Robot.intakeSubsystem.setIntake(intakeSpeed);
+    Robot.intakeSubsystem.setIntakeSpeed(intakeSpeed);
 
     if (pushLowHatch) {
       Robot.intakeSubsystem.setLowHatch(true);
-    } else{
+    } else {
       Robot.intakeSubsystem.setLowHatch(false);
     }
     if (pushHighHatch) {
