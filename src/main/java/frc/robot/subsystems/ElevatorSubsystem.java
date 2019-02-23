@@ -11,6 +11,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import frc.robot.RobotConstants;
 import frc.robot.RobotMap;
 import frc.robot.commands.ElevatorDefaultCommand;
 
@@ -58,11 +59,11 @@ public class ElevatorSubsystem extends Subsystem {
   }
 
   public void moveElevatorUp() {
-    setElevatorSpeed(RobotMap.ELEVATOR_COMMAND_SPEED);
+    setElevatorSpeed(RobotConstants.ELEVATOR_COMMAND_SPEED);
   }
 
   public void moveElevatorDown() {
-    setElevatorSpeed(-RobotMap.ELEVATOR_COMMAND_SPEED);
+    setElevatorSpeed(-RobotConstants.ELEVATOR_COMMAND_SPEED);
   }
 
   public void stopElevatorMovement() {
