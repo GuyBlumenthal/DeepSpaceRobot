@@ -33,11 +33,11 @@ public class IntakeDefaultCommand extends Command {
     boolean pushHighHatch = Robot.oi.pushHighHatch();
 
     Robot.intakeSubsystem.setPivotSpeed(pivotSpeed);
-    Robot.intakeSubsystem.setIntake(intakeSpeed);
+    Robot.intakeSubsystem.setIntakeSpeed(intakeSpeed);
 
     if (pushLowHatch) {
       Robot.intakeSubsystem.setLowHatch(true);
-    } else{
+    } else {
       Robot.intakeSubsystem.setLowHatch(false);
     }
     if (pushHighHatch) {

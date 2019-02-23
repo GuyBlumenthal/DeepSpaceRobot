@@ -42,7 +42,7 @@ public class IntakeSubsystem extends Subsystem {
 
   }
 
-  public void setIntake(double speed) {
+  public void setIntakeSpeed(double speed) {
     intakeMotor.set(speed);
   }
 
