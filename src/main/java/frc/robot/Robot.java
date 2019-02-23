@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.ChassisSubsystem;
+import frc.robot.subsystems.ElevatorSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.LiftSubsystem;
 
@@ -32,6 +33,7 @@ public class Robot extends TimedRobot {
 
   public static ChassisSubsystem chassisSubsystem = new ChassisSubsystem();
   public static LiftSubsystem liftSubsystem = new LiftSubsystem();
+  public static ElevatorSubsystem elevatorSubsystem = new ElevatorSubsystem();
   public static IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
 
   public static OI oi = new OI();
