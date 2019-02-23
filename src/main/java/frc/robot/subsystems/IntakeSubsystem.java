@@ -53,15 +53,22 @@ public class IntakeSubsystem extends Subsystem {
     highLimitSwitch = new DigitalInput(RobotMap.HIGH_LIMIT_SWITCH);
 
   }
+
+  public boolean getLowLimitSwitch () {
+    return !lowLimitSwitch.get();
+  }
   
+  public boolean getHighLimitSwitch () {
+    return !highLimitSwitch.get();
+  }
 
   public void setElevatorSpeed(double speed) {
     
-    if (speed < 0 && !lowLimitSwitch.get()) {
+    if (speed < 0 && getLowLimitSwitch()) {
       speed = 0;
     }
 
-    if (speed > 0 && !highLimitSwitch.get()) {
+    if (speed > 0 && getHighLimitSwitch()) {
       speed = 0;
     }
 
@@ -94,8 +101,25 @@ public class IntakeSubsystem extends Subsystem {
     }
   }
 
+  public void moveElevatorUp () {
+    setElevatorSpeed(RobotMap.ELEVATOR_COMMAND_SPEED);
+  }
+
+  public void moveElevatorDown () {
+    setElevatorSpeed(-RobotMap.ELEVATOR_COMMAND_SPEED);
+  }
+
+  public void stopElevatorMovement () {
+    setElevatorSpeed(0);
+  }
+
   @Override
   public void initDefaultCommand() {
     setDefaultCommand(new IntakeDefaultCommand());
   }
+
+  public void updateSmartDashboard () {
+
+  }
+
 }

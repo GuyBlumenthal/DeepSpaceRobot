@@ -62,6 +62,9 @@ public class Robot extends TimedRobot {
   @Override
   public void robotPeriodic() {
     Scheduler.getInstance().run();
+    intakeSubsystem.updateSmartDashboard();
+    chassisSubsystem.updateSmartDashboard();
+    liftSubsystem.updateSmartDashboard();
   }
 
   /**

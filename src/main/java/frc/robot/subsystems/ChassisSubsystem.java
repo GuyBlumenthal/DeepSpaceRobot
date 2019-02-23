@@ -10,9 +10,9 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
-import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.RobotMap;
 import frc.robot.commands.ChassisDefaultCommand;
 
@@ -29,9 +29,6 @@ public class ChassisSubsystem extends Subsystem {
   
   WPI_TalonSRX leftMotor;
   WPI_TalonSRX leftMotorFollow;
-
-  SpeedControllerGroup rightMotors;
-  SpeedControllerGroup leftMotors;
 
   DifferentialDrive drive;
 
@@ -61,4 +58,11 @@ public class ChassisSubsystem extends Subsystem {
   public void move(double speed, double turn){
     drive.arcadeDrive(speed, turn);
   }
+
+  public void updateSmartDashboard () {
+
+    SmartDashboard.putData("Drive Base", drive);
+
+  }
+  
 }

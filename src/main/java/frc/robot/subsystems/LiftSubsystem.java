@@ -40,4 +40,9 @@ public class LiftSubsystem extends Subsystem {
   public void initDefaultCommand() {
     setDefaultCommand(new LiftDefaultCommand());
   }
+
+  public void updateSmartDashboard () {
+
+  }
+  
 }

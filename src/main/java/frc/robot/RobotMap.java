@@ -38,4 +38,6 @@ public class RobotMap {
     public final static int LOW_LIMIT_SWITCH = 1;
     public final static int HIGH_LIMIT_SWITCH = 0;
 
+    public final static double ELEVATOR_COMMAND_SPEED = 0.5;
+
 }
