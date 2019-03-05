@@ -55,7 +55,7 @@ public class ElevatorSubsystem extends Subsystem {
     }
 
     elevatorMotor.set(speed);
-    elevatorMotorFollow.set(speed * 0.95);
+    elevatorMotorFollow.set(speed);
 
   }
 
