@@ -32,11 +32,11 @@ public class OI {
     }
 
     public double getPivotSpeed() {
-        return -operatingController.getY(Hand.kLeft);
+        return -operatingController.getY(Hand.kRight);
     }
 
     public double getElevatorSpeed() {
-        return -operatingController.getY(Hand.kRight);
+        return -operatingController.getY(Hand.kLeft);
     }
 
     public double getInputSpeed() {
