@@ -7,17 +7,25 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.command.Command;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import frc.robot.*;
+
+import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableEntry;
+import edu.wpi.first.wpilibj.command.Command;
+import frc.robot.Robot;
 
 public class FollowCommand extends Command {
  	
 	static double[] parameters = new double[3]; //0 = distance, 1 = angle, 2 = orientation
 	double speedL, speedR, maxSpeedL, maxSpeedR, minSpeedL, minSpeedR;
-	double l = 11; // change
+  double l = 11; // change
+  
+  NetworkTableInstance nti;
+  NetworkTable nt;
+  NetworkTableEntry[] entries = new NetworkTableEntry[3];
 	
 	public class CompareParams implements Comparator<double[][]> {
 
@@ -91,9 +99,9 @@ public class FollowCommand extends Command {
 		if (Math.abs(speedL) > minSpeedL && Math.abs(speedR) > minSpeedR) {
 			
 			for (int i = 0; i < 9; i++) {
-				char[] binaryRep = Integer.toBinaryString(i).toCharArray();
-				int side = Integer.parseInt(String.valueOf(binaryRep[0])) - 1;
-				int up = Integer.parseInt(String.valueOf(binaryRep[1])) - 1;
+				char[] ternaryRep = Integer.toString(i, 3).toCharArray();
+				int side = Integer.parseInt(String.valueOf(ternaryRep[0])) - 1;
+				int up = Integer.parseInt(String.valueOf(ternaryRep[1])) - 1;
 				
 				double[] direction = {speedL + side * delta, speedR + up * delta};
 				double[][] temp = {checkPosition(parameters, speedL + side * delta, speedR + up * delta), direction};
@@ -191,6 +199,7 @@ public class FollowCommand extends Command {
 
     public FollowCommand() {
         requires(Robot.chassisSubsystem);
+        nti = NetworkTableInstance.getDefault();
     }
 
     // Called just before this Command runs the first time
@@ -199,7 +208,17 @@ public class FollowCommand extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	newPosition(parameters); //Need to somehow feed new data to this command
+
+      nt = nti.getTable("Position");
+      entries[0] = nti.getEntry("distance");
+      entries[1] = nti.getEntry("angle");
+      entries[2] = nti.getEntry("orientation");
+
+      for (int i = 0; i < 3; i++) {
+        parameters[i] = entries[i].getDouble(0);
+      }
+
+    	newPosition(parameters);
     }
 
     // Make this return true when this Command no longer needs to run execute()
