@@ -65,6 +65,7 @@ public class Robot extends TimedRobot {
   public void robotPeriodic() {
     Scheduler.getInstance().run();
     intakeSubsystem.updateSmartDashboard();
+    elevatorSubsystem.updateSmartdashboard();
     chassisSubsystem.updateSmartDashboard();
     liftSubsystem.updateSmartDashboard();
   }

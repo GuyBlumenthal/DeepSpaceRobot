@@ -7,11 +7,11 @@
 
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.RobotMap;
 import frc.robot.commands.IntakeDefaultCommand;
 
@@ -28,15 +28,13 @@ public class IntakeSubsystem extends Subsystem {
 
   DoubleSolenoid lowHatch;
   DoubleSolenoid highHatch;
-  DigitalInput lowLimitSwitch;
-  DigitalInput highLimitSwitch;
 
-  public IntakeSubsystem () {
+  public IntakeSubsystem() {
 
     intakeMotor = new Victor(RobotMap.INTAKE_MOTOR);
-  
+
     pivotMotor = new Victor(RobotMap.PIVOT_MOTOR);
-  
+
     lowHatch = new DoubleSolenoid(RobotMap.LOW_HATCH_SOLENOID_PORT_ONE, RobotMap.LOW_HATCH_SOLENOID_PORT_TWO);
     highHatch = new DoubleSolenoid(RobotMap.HIGH_HATCH_SOLENOID_PORT_ONE, RobotMap.HIGH_HATCH_SOLENOID_PORT_TWO);
 
@@ -66,12 +64,27 @@ public class IntakeSubsystem extends Subsystem {
     }
   }
 
+  public boolean getHighHatch() {
+
+    return highHatch.get() == Value.kForward ? true : false;
+
+  }
+
+  public boolean getLowHatch() {
+
+    return lowHatch.get() == Value.kForward ? true : false;
+
+  }
+
   @Override
   public void initDefaultCommand() {
     setDefaultCommand(new IntakeDefaultCommand());
   }
 
-  public void updateSmartDashboard () {
+  public void updateSmartDashboard() {
+
+    SmartDashboard.putBoolean("High Hatch Solenoid", getHighHatch());
+    SmartDashboard.putBoolean("Low Hatch Solenoid", getLowHatch());
 
   }
 

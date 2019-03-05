@@ -7,10 +7,12 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.RobotConstants;
 import frc.robot.RobotMap;
 import frc.robot.commands.ElevatorDefaultCommand;
@@ -28,23 +30,27 @@ public class ElevatorSubsystem extends Subsystem {
 
   public ElevatorSubsystem() {
 
+    elevatorMotor = new WPI_TalonSRX(RobotMap.ELEVATOR_MOTOR_LEAD);
+    elevatorMotorFollow = new WPI_TalonSRX(RobotMap.ELEVATOR_MOTOR_FOLLOW);
+
+    elevatorMotor.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
+    elevatorMotorFollow.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
+
     lowLimitSwitch = new DigitalInput(RobotMap.LOW_LIMIT_SWITCH);
     highLimitSwitch = new DigitalInput(RobotMap.HIGH_LIMIT_SWITCH);
 
-    elevatorMotor = new WPI_TalonSRX(RobotMap.ELEVATOR_MOTOR_LEAD);
-    elevatorMotorFollow = new WPI_TalonSRX(RobotMap.ELEVATOR_MOTOR_FOLLOW);
   }
 
   public boolean getLowLimitSwitch() {
     return !lowLimitSwitch.get();
   }
-  
+
   public boolean getHighLimitSwitch() {
     return !highLimitSwitch.get();
   }
 
   public void setElevatorSpeed(double speed) {
-  
+
     if (speed < 0 && getLowLimitSwitch()) {
       speed = 0;
     }
@@ -70,9 +76,16 @@ public class ElevatorSubsystem extends Subsystem {
     setElevatorSpeed(0);
   }
 
-
   @Override
   public void initDefaultCommand() {
     setDefaultCommand(new ElevatorDefaultCommand());
   }
+
+  public void updateSmartdashboard() {
+
+    SmartDashboard.putBoolean("High Limit Switch", getHighLimitSwitch());
+    SmartDashboard.putBoolean("Low Limit Switch", getLowLimitSwitch());
+
+  }
+
 }
