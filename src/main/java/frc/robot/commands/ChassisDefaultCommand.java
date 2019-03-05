@@ -8,6 +8,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.Scheduler;
 import frc.robot.Robot;
 
 public class ChassisDefaultCommand extends Command {
@@ -27,7 +28,13 @@ public class ChassisDefaultCommand extends Command {
     double speed = Robot.oi.getSpeed();
     double turn = Robot.oi.getTurn();
 
+    boolean track = Robot.oi.trackTarget();
+
     Robot.chassisSubsystem.move(speed, turn);
+
+    if (track) {
+      Scheduler.getInstance().add(new FollowCommand());
+    }
 
   }
 

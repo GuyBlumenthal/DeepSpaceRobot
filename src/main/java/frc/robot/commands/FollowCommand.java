@@ -197,6 +197,14 @@ public class FollowCommand extends Command {
 		return newPos;
 	}
 
+	public void simple() {
+		double combinedOff = parameters[1] + parameters[2];
+		double highSpeed, slowSpeed;
+
+		highSpeed = (parameters[0] / 50 > 1) ? 1 : (parameters[0] / 50);
+		//slowSpeed = (combinedOff / 60) ? 
+	}
+
     public FollowCommand() {
         requires(Robot.chassisSubsystem);
         nti = NetworkTableInstance.getDefault();
@@ -214,16 +222,18 @@ public class FollowCommand extends Command {
       entries[1] = nti.getEntry("angle");
       entries[2] = nti.getEntry("orientation");
 
-      for (int i = 0; i < 3; i++) {
-        parameters[i] = entries[i].getDouble(0);
-      }
+	  parameters[0] = entries[0].getDouble(0);
+	  parameters[2] = entries[2].getDouble(0);
+	  parameters[1] = parameters[2] - entries[1].getDouble(0);
 
-    	newPosition(parameters);
+	  System.out.println("distance: " + parameters[0] + " angle: " + parameters[1] + " orientation: " + parameters[2]);
+
+    //	newPosition(parameters);
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return (parameters[0] <= 10) && (parameters[1] <= 5) && (parameters[2] <= 5);
+        return ((parameters[0] <= 10) && (parameters[1] <= 5) && (parameters[2] <= 5)) || Math.abs(Robot.oi.getSpeed()) > 0.2;
     }
 
     // Called once after isFinished returns true
