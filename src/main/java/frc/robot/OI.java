@@ -18,11 +18,6 @@ public class OI {
     XboxController drivingController = new XboxController(0);
     XboxController operatingController = new XboxController(1);
 
-
-    public boolean trackTarget() {
-        return operatingController.getYButton();
-    }
-
     public double getSpeed() {
         return -drivingController.getY(Hand.kLeft);
     }
