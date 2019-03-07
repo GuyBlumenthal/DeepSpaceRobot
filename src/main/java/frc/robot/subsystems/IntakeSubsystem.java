@@ -7,6 +7,7 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.Victor;
@@ -29,6 +30,8 @@ public class IntakeSubsystem extends Subsystem {
   DoubleSolenoid lowHatch;
   DoubleSolenoid highHatch;
 
+  DigitalInput pivotLimitSwitch;
+
   public IntakeSubsystem() {
 
     intakeMotor = new Victor(RobotMap.INTAKE_MOTOR);
@@ -38,6 +41,12 @@ public class IntakeSubsystem extends Subsystem {
     lowHatch = new DoubleSolenoid(RobotMap.LOW_HATCH_SOLENOID_PORT_ONE, RobotMap.LOW_HATCH_SOLENOID_PORT_TWO);
     highHatch = new DoubleSolenoid(RobotMap.HIGH_HATCH_SOLENOID_PORT_ONE, RobotMap.HIGH_HATCH_SOLENOID_PORT_TWO);
 
+    pivotLimitSwitch = new DigitalInput(RobotMap.PIVOT_LIMIT_SWITCH);
+
+  }
+
+  public boolean getPivotLimitSwitch() {
+    return !pivotLimitSwitch.get();
   }
 
   public void setIntakeSpeed(double speed) {
@@ -45,6 +54,11 @@ public class IntakeSubsystem extends Subsystem {
   }
 
   public void setPivotSpeed(double speed) {
+    
+    if (getPivotLimitSwitch() && speed > 0) {
+      speed = 0;
+    }
+
     pivotMotor.set(speed);
   }
 
@@ -66,13 +80,13 @@ public class IntakeSubsystem extends Subsystem {
 
   public boolean getHighHatch() {
 
-    return highHatch.get() == Value.kForward ? true : false;
+    return highHatch.get() == Value.kForward ? false : true;
 
   }
 
   public boolean getLowHatch() {
 
-    return lowHatch.get() == Value.kForward ? true : false;
+    return lowHatch.get() == Value.kForward ? false : true;
 
   }
 
@@ -85,6 +99,8 @@ public class IntakeSubsystem extends Subsystem {
 
     SmartDashboard.putBoolean("High Hatch Solenoid", getHighHatch());
     SmartDashboard.putBoolean("Low Hatch Solenoid", getLowHatch());
+
+    SmartDashboard.putBoolean("Pivot Limit Switch", getPivotLimitSwitch());
 
   }
 

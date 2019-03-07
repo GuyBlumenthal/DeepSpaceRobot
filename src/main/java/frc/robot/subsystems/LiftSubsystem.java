@@ -7,6 +7,7 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
@@ -18,17 +19,30 @@ import frc.robot.commands.LiftDefaultCommand;
 public class LiftSubsystem extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
+  
   Victor screwMotor;
   Victor liftDrivingMotor;
+
+  DigitalInput screwLimitSwitch;
 
   public LiftSubsystem () {
 
     screwMotor  = new Victor(RobotMap.SCREW_MOTOR);
     liftDrivingMotor = new Victor(RobotMap.LIFT_DRIVING_MOTOR);
 
+    screwLimitSwitch = new DigitalInput(RobotMap.SCREW_LIMIT_SWITCH);
+
   }
 
+  public boolean getScrewLimitSwitch() {
+    return !screwLimitSwitch.get();
+  }
   public void setScrewSpeed(double speed){
+    
+    if (getScrewLimitSwitch() && speed > 0) {
+      speed = 0;
+    }
+
     screwMotor.set(speed);
   }
   
