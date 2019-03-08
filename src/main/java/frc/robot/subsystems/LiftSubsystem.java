@@ -10,6 +10,7 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.RobotMap;
 import frc.robot.commands.LiftDefaultCommand;
 
@@ -56,6 +57,8 @@ public class LiftSubsystem extends Subsystem {
   }
 
   public void updateSmartDashboard () {
+
+    SmartDashboard.putBoolean("Screw Limit Switch", getScrewLimitSwitch());
 
   }
   
