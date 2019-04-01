@@ -12,7 +12,6 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.RobotMap;
 import frc.robot.commands.ChassisDefaultCommand;
 
@@ -65,7 +64,7 @@ public class ChassisSubsystem extends Subsystem {
 
   public void updateSmartDashboard () {
 
-    SmartDashboard.putData("Drive Base", drive);
+
 
   }
   
