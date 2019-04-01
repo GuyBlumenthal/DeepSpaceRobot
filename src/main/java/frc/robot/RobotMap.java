@@ -24,7 +24,7 @@ public class RobotMap {
 
     public final static int ELEVATOR_MOTOR_LEAD = 9;
     public final static int ELEVATOR_MOTOR_FOLLOW = 10;
-
+   
     // ------------------------------ //
     // ---------- PWM Ports --------- //
     // ------------------------------ //
@@ -54,6 +54,6 @@ public class RobotMap {
     public final static int LOW_LIMIT_SWITCH = 1;
     public final static int HIGH_LIMIT_SWITCH = 0;
     public final static int PIVOT_LIMIT_SWITCH = 2;
-    public final static int SCREW_LIMIT_SWITCH = 2;
+    public final static int SCREW_LIMIT_SWITCH = 3;
 
 }
