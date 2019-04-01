@@ -9,9 +9,13 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.kauailabs.navx.frc.AHRS;
 
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.RobotMap;
 import frc.robot.commands.ChassisDefaultCommand;
 
@@ -31,6 +35,8 @@ public class ChassisSubsystem extends Subsystem {
 
   DifferentialDrive drive;
 
+  AHRS gyro;
+
   public ChassisSubsystem () {
 
     rightMotor = new WPI_TalonSRX(RobotMap.RIGHT_MOTOR_ONE);
@@ -47,6 +53,15 @@ public class ChassisSubsystem extends Subsystem {
     
     drive = new DifferentialDrive(leftMotor, rightMotor);
 
+    try {
+      /* Communicate w/navX-MXP via the MXP SPI Bus.                                     */
+      /* Alternatively:  I2C.Port.kMXP, SerialPort.Port.kMXP or SerialPort.Port.kUSB     */
+      /* See http://navx-mxp.kauailabs.com/guidance/selecting-an-interface/ for details. */
+      gyro = new AHRS(SPI.Port.kMXP); 
+  } catch (RuntimeException ex ) {
+      DriverStation.reportError("Error instantiating navX-MXP:  " + ex.getMessage(), true);
+  }
+    
   }
 
   @Override
@@ -64,7 +79,7 @@ public class ChassisSubsystem extends Subsystem {
 
   public void updateSmartDashboard () {
 
-
+    SmartDashboard.putNumber("Gyro", gyro.getAngle());
 
   }
   
