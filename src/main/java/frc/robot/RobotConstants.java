@@ -18,4 +18,11 @@ public class RobotConstants {
     
     public final static double ELEVATOR_COMMAND_SPEED = 0.5;
 
+    // --- Drive Straight Command --- // 
+
+    public final static double DRIVE_STRAIGHT_MAX_SPEED = 0.5;
+    public final static double ANGLE_DEADBAND = 1.0;
+
+    // ------------------------------ //
+
 }
