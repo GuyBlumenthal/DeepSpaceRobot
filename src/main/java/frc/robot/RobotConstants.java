@@ -20,8 +20,8 @@ public class RobotConstants {
 
     // --- Drive Straight Command --- // 
 
-    public final static double DRIVE_STRAIGHT_MAX_SPEED = 0.5;
-    public final static double ANGLE_DEADBAND = 1.0;
+    public final static double DRIVE_STRAIGHT_MAX_SPEED = 0.65;
+    public final static double ANGLE_DEADBAND = 2.0;
 
     // ------------------------------ //
 

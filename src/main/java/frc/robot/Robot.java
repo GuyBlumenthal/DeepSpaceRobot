@@ -7,16 +7,11 @@
 
 package frc.robot;
 
-import edu.wpi.cscore.UsbCamera;
-import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.ChassisSubsystem;
-import frc.robot.subsystems.ElevatorSubsystem;
-import frc.robot.subsystems.IntakeSubsystem;
-import frc.robot.subsystems.LiftSubsystem;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -32,13 +27,9 @@ public class Robot extends TimedRobot {
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
 
   public static ChassisSubsystem chassisSubsystem = new ChassisSubsystem();
-  public static LiftSubsystem liftSubsystem = new LiftSubsystem();
-  public static ElevatorSubsystem elevatorSubsystem = new ElevatorSubsystem();
-  public static IntakeSubsystem intakeSubsystem = new IntakeSubsystem();
 
   public static OI oi = new OI();
 
-  UsbCamera camera;
 
   /**
    * This function is run when the robot is first started up and should be
@@ -50,7 +41,6 @@ public class Robot extends TimedRobot {
     m_chooser.addOption("My Auto", kCustomAuto);
     SmartDashboard.putData("Auto choices", m_chooser);
 
-    camera = CameraServer.getInstance().startAutomaticCapture();
   }
 
   /**
@@ -64,10 +54,7 @@ public class Robot extends TimedRobot {
   @Override
   public void robotPeriodic() {
     Scheduler.getInstance().run();
-    intakeSubsystem.updateSmartDashboard();
-    elevatorSubsystem.updateSmartdashboard();
     chassisSubsystem.updateSmartDashboard();
-    liftSubsystem.updateSmartDashboard();
   }
 
   /**

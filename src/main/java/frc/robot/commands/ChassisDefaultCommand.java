@@ -8,6 +8,8 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 
 public class ChassisDefaultCommand extends Command {
@@ -23,9 +25,20 @@ public class ChassisDefaultCommand extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-
+SmartDashboard.putNumber("Command", 0);
     double speed = Robot.oi.getSpeed();
     double turn = Robot.oi.getTurn();
+
+    SmartDashboard.putNumber("Left Speed", 0);
+    SmartDashboard.putNumber("Right Speed", 0);
+    SmartDashboard.putNumber("currAngle", 0);
+    SmartDashboard.putNumber("Difference", 0);
+
+    boolean drivestraight = Robot.oi.getDrive();
+
+    if (drivestraight) {
+      Scheduler.getInstance().add(new DriveStraightCommand(14));
+    }
 
     Robot.chassisSubsystem.move(speed, turn);
 

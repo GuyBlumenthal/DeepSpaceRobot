@@ -13,6 +13,8 @@ import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.SPI;
+import edu.wpi.first.wpilibj.Spark;
+import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -27,11 +29,9 @@ public class ChassisSubsystem extends Subsystem {
   // here. Call these from Commands.
 
 
-  WPI_TalonSRX rightMotor;
-  WPI_TalonSRX rightMotorFollow;
+  Spark rightMotor;
   
-  WPI_TalonSRX leftMotor;
-  WPI_TalonSRX leftMotorFollow;
+  Spark leftMotor;
 
   DifferentialDrive drive;
 
@@ -39,17 +39,9 @@ public class ChassisSubsystem extends Subsystem {
 
   public ChassisSubsystem () {
 
-    rightMotor = new WPI_TalonSRX(RobotMap.RIGHT_MOTOR_ONE);
-    rightMotorFollow = new WPI_TalonSRX(RobotMap.RIGHT_MOTOR_TWO);
+    rightMotor = new Spark(RobotMap.RIGHT_MOTOR_ONE);
 
-    rightMotorFollow.follow(rightMotor);
-    rightMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);
-
-    leftMotor = new WPI_TalonSRX(RobotMap.LEFT_MOTOR_ONE);
-    leftMotorFollow = new WPI_TalonSRX(RobotMap.LEFT_MOTOR_TWO);
-
-    leftMotorFollow.follow(leftMotor);
-    leftMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative);;
+    leftMotor = new Spark(RobotMap.LEFT_MOTOR_ONE);
     
     drive = new DifferentialDrive(leftMotor, rightMotor);
 
@@ -87,6 +79,8 @@ public class ChassisSubsystem extends Subsystem {
 
   public void updateSmartDashboard () {
 
+
+    
     SmartDashboard.putNumber("Gyro", getAngle());
 
   }

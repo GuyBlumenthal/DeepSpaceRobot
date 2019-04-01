@@ -34,6 +34,10 @@ public class OI {
         return -operatingController.getY(Hand.kLeft);
     }
 
+    public boolean getDrive () {
+        return drivingController.getBButtonPressed();
+    }
+
     public double getInputSpeed() {
 
         if (operatingController.getBumper(Hand.kRight)) {

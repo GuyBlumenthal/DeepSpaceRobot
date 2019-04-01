@@ -8,17 +8,18 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 import frc.robot.RobotConstants;
 
 public class DriveStraightCommand extends Command {
 
-  double cmDistance;
+  double time;
 
-  public DriveStraightCommand(double cmDistance) {
+  public DriveStraightCommand(double time) {
     requires(Robot.chassisSubsystem);
 
-    this.cmDistance = cmDistance;
+    this.time = time;
 
   }
 
@@ -35,7 +36,7 @@ public class DriveStraightCommand extends Command {
 
     double currAngle = Robot.chassisSubsystem.getAngle();
 
-    double difference = Math.cos(currAngle) * RobotConstants.DRIVE_STRAIGHT_MAX_SPEED;
+    double difference = Math.pow(Math.sin(currAngle), 2) * RobotConstants.DRIVE_STRAIGHT_MAX_SPEED;
     double err = Math.abs(0 - currAngle);
 
     double max = RobotConstants.DRIVE_STRAIGHT_MAX_SPEED;
@@ -45,22 +46,26 @@ public class DriveStraightCommand extends Command {
 
     if (err > RobotConstants.ANGLE_DEADBAND) {
       if (currAngle > 0) {
-        // Right is max
         leftSpeed = low;
       } else {
-        // Left is max
         rightSpeed = low;
       }
     }
-
+    SmartDashboard.putNumber("Command", 1);
     Robot.chassisSubsystem.tankMove(leftSpeed, rightSpeed);
+
+    SmartDashboard.putNumber("Left Speed", leftSpeed);
+    SmartDashboard.putNumber("Right Speed", rightSpeed);
+    SmartDashboard.putNumber("currAngle", currAngle);
+    SmartDashboard.putNumber("Difference", difference);
+    
 
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return false;
+    return timeSinceInitialized() >= time;
   }
 
   // Called once after isFinished returns true
