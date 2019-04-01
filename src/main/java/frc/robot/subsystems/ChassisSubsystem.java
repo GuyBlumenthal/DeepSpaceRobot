@@ -77,9 +77,17 @@ public class ChassisSubsystem extends Subsystem {
     drive.tankDrive(leftSpeed, rightSpeed);
   }
 
+  public void resetGyro () {
+    gyro.reset();
+  }
+
+  public double getAngle () {
+    return gyro.getAngle();
+  }
+
   public void updateSmartDashboard () {
 
-    SmartDashboard.putNumber("Gyro", gyro.getAngle());
+    SmartDashboard.putNumber("Gyro", getAngle());
 
   }
   
