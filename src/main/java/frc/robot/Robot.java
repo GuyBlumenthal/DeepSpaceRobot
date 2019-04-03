@@ -7,8 +7,11 @@
 
 package frc.robot;
 
+import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.subsystems.ChassisSubsystem;
@@ -30,6 +33,10 @@ public class Robot extends TimedRobot {
 
   public static OI oi = new OI();
 
+  private static ShuffleboardTab tab = Shuffleboard.getTab("Drive");
+  public static NetworkTableEntry maxSpeed =
+      tab.add("Max Speed", 1)
+         .getEntry();
 
   /**
    * This function is run when the robot is first started up and should be

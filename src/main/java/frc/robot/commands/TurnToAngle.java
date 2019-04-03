@@ -8,47 +8,76 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
+import frc.robot.RobotConstants;
 
-public class ChassisDefaultCommand extends Command {
-  public ChassisDefaultCommand() {
+public class TurnToAngle extends Command {
+  
+  double angle;
+  double still;
+
+  public TurnToAngle(double angle) {
     requires(Robot.chassisSubsystem);
+
+    this.angle = angle;
+    this.still = 0;
+
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+    Robot.chassisSubsystem.move(0, 0);
+    Robot.chassisSubsystem.resetGyro();
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-SmartDashboard.putNumber("Command", 0);
-    double speed = Robot.oi.getSpeed();
-    double turn = Robot.oi.getTurn();
 
-    SmartDashboard.putNumber("Left Speed", 0);
-    SmartDashboard.putNumber("Right Speed", 0);
-    SmartDashboard.putNumber("currAngle", 0);
-    SmartDashboard.putNumber("Difference", 0);
+    double currAngle = angle + Robot.chassisSubsystem.getAngle();
 
-    double max = 0;
-    boolean drivestraight = max == 1 ? true : false;
+    double difference = Math.pow(Math.sin(currAngle), 2) * RobotConstants.DRIVE_STRAIGHT_MAX_SPEED;
+    double err = Math.abs(0 - currAngle);
 
-    if (drivestraight) {
-      Scheduler.getInstance().add(new DriveStraightCommand(14));
+    double max = RobotConstants.DRIVE_STRAIGHT_MAX_SPEED - difference;
+    double low = -max;
+
+    double leftSpeed = max, rightSpeed = max;
+
+    if (err > RobotConstants.ANGLE_DEADBAND) {
+      if (currAngle > 0) {
+        leftSpeed = low;
+      } else {
+        rightSpeed = low;
+      }
     }
-
-    Robot.chassisSubsystem.move(speed, turn);
+    SmartDashboard.putNumber("Command", 1);
+    Robot.chassisSubsystem.tankMove(leftSpeed, rightSpeed);    
 
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return false;
+    
+    double currAngle = angle + Robot.chassisSubsystem.getAngle();
+
+    double err = Math.abs(0 - currAngle);
+
+    if (err < RobotConstants.ANGLE_DEADBAND) {
+      still ++;
+    } else {
+      still = 0;
+    }
+
+    if (still > 20) {
+      return true;
+    } else {
+      return false;
+    }
+
   }
 
   // Called once after isFinished returns true
