@@ -44,7 +44,8 @@ public class TurnToAngle extends Command {
     double max = RobotConstants.MAX_DRIVE_STRAIGHT_SPEED - difference;
     double low = -max;
 
-    double leftSpeed = 0, rightSpeed = 0;
+    double leftSpeed = 0;
+    double rightSpeed = 0;
 
     if (err > RobotConstants.ANGLE_DEADBAND) {
       if (currAngle > 0) {
