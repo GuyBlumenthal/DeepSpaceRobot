@@ -12,14 +12,16 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 import frc.robot.RobotConstants;
 
-public class DriveStraightCommand extends Command {
+public class TurnToAngle extends Command {
+  
+  double angle;
+  double still;
 
-  double time;
-
-  public DriveStraightCommand(double time) {
+  public TurnToAngle(double angle) {
     requires(Robot.chassisSubsystem);
 
-    this.time = time;
+    this.angle = angle;
+    this.still = 0;
 
   }
 
@@ -34,38 +36,50 @@ public class DriveStraightCommand extends Command {
   @Override
   protected void execute() {
 
-    double currAngle = Robot.chassisSubsystem.getAngle();
+    double currAngle = angle + Robot.chassisSubsystem.getAngle();
 
     double difference = Math.pow(Math.sin(currAngle), 2) * RobotConstants.MAX_DRIVE_STRAIGHT_SPEED;
     double err = Math.abs(0 - currAngle);
 
-    double max = RobotConstants.MAX_DRIVE_STRAIGHT_SPEED;
-    double low = max - difference;
+    double max = RobotConstants.MAX_DRIVE_STRAIGHT_SPEED - difference;
+    double low = -max;
 
-    double leftSpeed = max, rightSpeed = max;
+    double leftSpeed = 0, rightSpeed = 0;
 
     if (err > RobotConstants.ANGLE_DEADBAND) {
       if (currAngle > 0) {
         leftSpeed = low;
+        rightSpeed = max;
       } else {
+        leftSpeed = max;
         rightSpeed = low;
       }
     }
     SmartDashboard.putNumber("Command", 1);
-    Robot.chassisSubsystem.tankMove(leftSpeed, rightSpeed);
-
-    SmartDashboard.putNumber("Left Speed", leftSpeed);
-    SmartDashboard.putNumber("Right Speed", rightSpeed);
-    SmartDashboard.putNumber("currAngle", currAngle);
-    SmartDashboard.putNumber("Difference", difference);
-    
+    Robot.chassisSubsystem.tankMove(leftSpeed, rightSpeed);    
 
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return timeSinceInitialized() >= time;
+    
+    double currAngle = angle + Robot.chassisSubsystem.getAngle();
+
+    double err = Math.abs(0 - currAngle);
+
+    if (err < RobotConstants.ANGLE_DEADBAND) {
+      still ++;
+    } else {
+      still = 0;
+    }
+
+    if (still > 10) {
+      return true;
+    } else {
+      return false;
+    }
+
   }
 
   // Called once after isFinished returns true
