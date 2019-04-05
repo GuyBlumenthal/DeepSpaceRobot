@@ -10,9 +10,9 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-public class IntakeDefaultCommand extends Command {
-  public IntakeDefaultCommand() {
-    requires(Robot.intakeSubsystem);
+public class UnlockHatchCommand extends Command {
+  public UnlockHatchCommand() {
+    requires(Robot.intakeSubsystem)
   }
 
   // Called just before this Command runs the first time
@@ -23,20 +23,6 @@ public class IntakeDefaultCommand extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-
-    double pivotSpeed = Robot.oi.getPivotSpeed();
-
-    double intakeSpeed = Robot.oi.getInputSpeed();
-
-    boolean hatch = Robot.oi.hatchToggle();
-
-    Robot.intakeSubsystem.setPivotSpeed(pivotSpeed);
-    Robot.intakeSubsystem.setIntakeSpeed(intakeSpeed);
-
-    if (hatch) {
-      Robot.intakeSubsystem.setHatch(!Robot.intakeSubsystem.getHatch());
-    }
-
   }
 
   // Make this return true when this Command no longer needs to run execute()

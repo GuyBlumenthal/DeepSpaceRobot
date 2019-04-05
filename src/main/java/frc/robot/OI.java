@@ -46,12 +46,8 @@ public class OI {
 
     }
 
-    public boolean pushLowHatch() {
-        return operatingController.getAButton();
-    }
-
-    public boolean pushHighHatch() {
-        return operatingController.getBButton();
+    public boolean hatchToggle() {
+        return operatingController.getAButtonPressed();
     }
 
     public double getScrewSpeed() {

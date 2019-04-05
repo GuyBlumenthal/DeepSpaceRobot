@@ -27,8 +27,7 @@ public class IntakeSubsystem extends Subsystem {
 
   Victor pivotMotor;
 
-  DoubleSolenoid lowHatch;
-  DoubleSolenoid highHatch;
+  DoubleSolenoid hatch;
 
   DigitalInput pivotLimitSwitch;
 
@@ -38,8 +37,7 @@ public class IntakeSubsystem extends Subsystem {
 
     pivotMotor = new Victor(RobotMap.PIVOT_MOTOR);
 
-    lowHatch = new DoubleSolenoid(RobotMap.LOW_HATCH_SOLENOID_PORT_ONE, RobotMap.LOW_HATCH_SOLENOID_PORT_TWO);
-    highHatch = new DoubleSolenoid(RobotMap.HIGH_HATCH_SOLENOID_PORT_ONE, RobotMap.HIGH_HATCH_SOLENOID_PORT_TWO);
+    hatch = new DoubleSolenoid(RobotMap.HATCH_SOLENOID_PORT_ONE, RobotMap.HATCH_SOLENOID_PORT_TWO);
 
     pivotLimitSwitch = new DigitalInput(RobotMap.PIVOT_LIMIT_SWITCH);
 
@@ -62,31 +60,17 @@ public class IntakeSubsystem extends Subsystem {
     pivotMotor.set(speed);
   }
 
-  public void setLowHatch(boolean state) {
+  public void lockHatch(boolean state) {
     if (state) {
-      lowHatch.set(Value.kReverse);
+      hatch.set(Value.kReverse);
     } else {
-      lowHatch.set(Value.kForward);
+      hatch.set(Value.kForward);
     }
   }
+  
+  public boolean getHatch() {
 
-  public void setHighHatch(boolean state) {
-    if (state) {
-      highHatch.set(Value.kReverse);
-    } else {
-      highHatch.set(Value.kForward);
-    }
-  }
-
-  public boolean getHighHatch() {
-
-    return highHatch.get() == Value.kForward ? false : true;
-
-  }
-
-  public boolean getLowHatch() {
-
-    return lowHatch.get() == Value.kForward ? false : true;
+    return hatch.get() == Value.kForward ? false : true;
 
   }
 
@@ -97,8 +81,7 @@ public class IntakeSubsystem extends Subsystem {
 
   public void updateSmartDashboard() {
 
-    SmartDashboard.putBoolean("High Hatch Solenoid", getHighHatch());
-    SmartDashboard.putBoolean("Low Hatch Solenoid", getLowHatch());
+    SmartDashboard.putBoolean("Hatch Solenoid", getHatch());
 
     SmartDashboard.putBoolean("Pivot Limit Switch", getPivotLimitSwitch());
 
